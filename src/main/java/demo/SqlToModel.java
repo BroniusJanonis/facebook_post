@@ -142,9 +142,18 @@ public class SqlToModel implements IModel{
         }
     }
 
+    // reikia Post modelyje Date pakeist i stringa arba date konvertuot i stringini formata (kuri gaunam is Postman), nes isparsinus neisiraso ir atmetamas irasymas
     @Override
     public void updatePost(Posts posts) {
-
+        try(Connection conn = sql2o.beginTransaction()){
+            conn.createQuery("UPDATE posts SET title=:tlt, content=:cntnt, publish_date=: pub_dt WHERE post_uuid=:pst_uuid")
+                    .addParameter("tlt",posts.getTitle())
+                    .addParameter("cntnt",posts.getContent())
+                    .addParameter("pub_dt",posts.getPublish_date())
+                    .addParameter("pst_uuid",posts.getPost_uuid())
+                    .executeUpdate();
+            conn.commit();
+        }
     }
 
     @Override

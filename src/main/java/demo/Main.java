@@ -76,5 +76,38 @@ public class Main {
             return mapper.writeValueAsString(allPosts);
         });
 
+        // PVZ per Postman.: http://localhost:8067/getAllComments?uuid=d46e313a-44b5-4cd9-8195-e36e2ae5d568
+        get("/getAllComments", (request, response) -> {
+            List<Comment> allPosts = model.getAllComments(UUID.fromString(request.queryParams("uuid")));
+            response.status(200);
+            response.type("application/json");
+            // mapper Jackson
+            ObjectMapper mapper = new ObjectMapper();
+            // Object (cia list'as) to Json in String
+            return mapper.writeValueAsString(allPosts);
+        });
+
+        // PVZ per Postman.: http://localhost:8067/existPost?uuid=d46e313a-44b5-4cd9-8195-e36e2ae5d568
+        get("/existPost", (request, response) -> {
+            boolean uuid = model.existPost(UUID.fromString(request.queryParams("uuid")));
+            response.status(200);
+            response.type("application/json");
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.writeValueAsString(uuid);
+        });
+
+        post("/updatePost", (request, response) ->
+                {
+                    Gson gson = new Gson();
+                    String body = request.body();
+                    Posts post = gson.fromJson(body, Posts.class);
+
+                    model.updatePost(post);
+                    response.status(200);
+                    response.type("application/json");
+                    return response;
+                }
+        );
+
     }
 }
