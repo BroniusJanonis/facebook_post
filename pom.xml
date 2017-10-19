@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>lt.facebook_post</groupId>
+    <artifactId>facebook_post</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!--Plugins yra Maven Projects (desineje salia Database) ikeliami, be ju, nebutu plugin'o-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+        <java.vesion>1.8</java.vesion>
+    </properties>
+    <dependencies>
+        <!--SPARK-->
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <!--Mikroservisam skirta biblioteka, kad lengviau irasinetu i DB
+        anksciau naudojom be sito, nes per jdbc template irasinedavom/ Skirtas CRUD (Create, Read, Update, Delete)-->
+        <dependency>
+            <groupId>org.sql2o</groupId>
+            <artifactId>sql2o</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <!--Postgresql-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.1.4</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!--Gson parsinimui-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <!--Jackson parsinimui-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.8.7</version>
+        </dependency>
+        <!--Lombok skirta kaip ir Springe anotacijos, kad suristumem modeli su duomenu baze-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.16</version>
+        </dependency>
+
+    </dependencies>
+
+    <!--SELECT * FROM posts INNER JOIN comments ON posts.post_uuid = comments.post_uuid INNER JOIN post_category ON posts.post_uuid = post_category.post_uuid-->
+    <!--SELECT posts.title, comments.author, post_category.category FROM posts INNER JOIN comments ON posts.post_uuid = comments.post_uuid INNER JOIN post_category ON posts.post_uuid = post_category.post_uuid-->
+
+</project>
